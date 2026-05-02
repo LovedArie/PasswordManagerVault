@@ -1,0 +1,63 @@
+# Build output
+build/
+out/
+cmake-build-*/
+
+# Compiled object files
+*.o
+*.obj
+*.lo
+*.slo
+*.ko
+
+# Compiled libraries and executables
+*.a
+*.la
+*.lib
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+*.out
+*.app
+
+# Debugger / profiler
+*.pdb
+*.idb
+*.ilk
+*.dSYM/
+*.gcov
+*.gcda
+*.gcno
+
+# Precompiled headers
+*.gch
+*.pch
+
+# CMake artifacts
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+Makefile
+compile_commands.json
+CTestTestfile.cmake
+_deps/
+install_manifest.txt
+
+# IDE / editor folders
+.vscode/
+.idea/
+.vs/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
