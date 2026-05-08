@@ -2,6 +2,28 @@
 
 A running log of where each session ended. Newest at top.
 
+
+---
+
+## 2026-05-06 — Qt Hello World prototype works end-to-end
+
+**State:** Iteration E1, R-02 mitigation complete. Qt install validated.
+
+**Done this session:**
+- Created `prototypes/qt-hello/` with minimal CMakeLists.txt + main.cpp
+- Verified Qt's bundled MinGW (GCC 13.1) is the correct toolchain
+- CMake configure clean, build clean, exe runs and shows window
+- Learned the gotcha: Qt's bin folder must be on PATH at runtime (will use windeployqt for real app later)
+
+**Where to pick up next:**
+1. Wire Qt into the *main* project's CMakeLists.txt (the real one at the root)
+2. Decide whether the main project switches to Qt's MinGW or finds another way to coexist with MSYS2's GCC 15.2
+3. Once main project builds with Qt linked (no UI yet, just linkage), start the unlock dialog
+
+**Open question for next session:**
+- Compiler ABI question: can the existing tests (built with MSYS2 GCC 15.2) and Qt code (needs GCC 13.1) live in one CMake project? Or do we standardize on GCC 13.1 for everything? Will research before next session.
+
+
 ---
 
 ## 2026-05-03 — End of inception, Qt installed
@@ -34,3 +56,4 @@ A running log of where each session ended. Newest at top.
 **Risks to re-rank at start of next session:**
 - R-02 (Qt learning curve) — about to be tested in earnest
 - R-04 (focus drift) — first real test of the session-notes protocol
+
