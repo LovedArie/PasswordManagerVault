@@ -2,6 +2,33 @@
 
 A running log of where each session ended. Newest at top.
 
+## 2026-05-12 — qt-form prototype complete, R-02 dropping
+
+**State:** Iteration E1 in progress. Three prototypes complete (`qt-hello`, `qt-signals`, `qt-form`). Domain layer still untouched per Larman's Model-View Separation.
+
+**Done this session:**
+- Created `prototypes/qt-form/` with QLineEdit + QPushButton + QVBoxLayout
+- Used `setEchoMode(QLineEdit::Password)` — satisfies Supplementary Spec usability requirement (masked password input)
+- Reading widget text via `.text()` on button click — the mechanic the real unlock dialog will use
+- Learned Qt's parent-child ownership model (window owns layout owns widgets — cascading destruction)
+- Practiced capture-by-value of pointers in lambdas (`[siteEdit, pwEdit, result]` not `[&]`) — habit-building for R-05
+- Caught two typos at compile time — concrete proof of C++'s compile-time safety vs Java/Python
+- (Re-)created `scripts/qt-env.ps1` (it was missing; now exists properly)
+
+**Where to pick up next:**
+`prototypes/qt-dialog/` — covers `QDialog::exec()` and return values. The last mechanic before the real unlock dialog.
+
+**Critical things to remember:**
+- Dot-source the env script: `. ..\..\scripts\qt-env.ps1` (leading dot-space is essential)
+- Capture pointers by value in lambdas, not by reference (Stroustrup Ch. 11.4.3.1 "time bomb")
+- C++ compile errors are a feature, not friction — they catch what Java's runtime would catch later
+
+**Risks to re-rank at start of next session:**
+- **R-02 (Qt learning curve):** was H/M, dropping to **M/M**. Three of four mechanics for the unlock dialog are now proven (signals/slots, layouts, form input). QDialog is the last unknown.
+- **R-05 (C++ memory mistakes):** unchanged. The capture-by-value habit is forming.
+
+---
+
 ## 2026-05-07 — qt-signals prototype works, signals/slots learned
 
 **State:** Iteration E1 in progress. Two prototypes complete in `prototypes/`. Qt fundamentals (QApplication, widgets, signals/slots, lambdas) understood. Domain layer (`Vault`, `Entry`) still untouched per Larman's Model-View Separation.
