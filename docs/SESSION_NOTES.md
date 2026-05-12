@@ -2,6 +2,33 @@
 
 A running log of where each session ended. Newest at top.
 
+## 2026-05-12 — qt-dialog prototype complete, R-02 retired
+
+**State:** Iteration E1 in progress. All four Qt prototypes complete. Every mechanic needed for the real unlock dialog has been exercised in isolation. Domain layer still untouched per Larman's Model-View Separation (Ch. 13 §13.7).
+
+**Done this session:**
+- Created `prototypes/qt-dialog/` with QDialog, masked QLineEdit, OK/Cancel buttons
+- Learned QDialog vs QWidget vs QMainWindow (when to use each)
+- Learned modal blocking via `dlg.exec()` returning Accepted/Rejected
+- Used the full `connect(sender, signal, receiver, slot)` form for the first time (vs lambda)
+- Used nested layouts (QVBoxLayout containing QHBoxLayout) for the button row
+- Fixed a paste-error compile error — practiced reading "candidate" notes in GCC errors
+
+**Where to pick up next:**
+The compiler ABI question (open since 2026-05-06). Resolve it before any main-project integration:
+- Existing tests use MSYS2 GCC 15.2
+- Qt requires GCC 13.1 (its bundled MinGW)
+- Standardize on one toolchain for the whole project (likely Qt's GCC 13.1)
+- Rebuild + retest the domain layer with the new toolchain
+- THEN wire Qt into the main project's CMakeLists.txt
+
+**Risks to re-rank at start of next session:**
+- **R-02 (Qt learning curve):** retired. Was H/M, now **L/L**. Every mechanic proven.
+- **R-05 (C++ memory mistakes):** unchanged. Capture-by-value-of-pointers habit holding.
+- New concern (not yet a risk, just a watch item): **deploying Qt DLLs alongside the .exe** — `windeployqt` is the standard tool. Will surface during integration.
+
+---
+
 ## 2026-05-12 — qt-form prototype complete, R-02 dropping
 
 **State:** Iteration E1 in progress. Three prototypes complete (`qt-hello`, `qt-signals`, `qt-form`). Domain layer still untouched per Larman's Model-View Separation.
