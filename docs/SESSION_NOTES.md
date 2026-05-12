@@ -2,6 +2,38 @@
 
 A running log of where each session ended. Newest at top.
 
+## 2026-05-07 — qt-signals prototype works, signals/slots learned
+
+**State:** Iteration E1 in progress. Two prototypes complete in `prototypes/`. Qt fundamentals (QApplication, widgets, signals/slots, lambdas) understood. Domain layer (`Vault`, `Entry`) still untouched per Larman's Model-View Separation.
+
+**Done this session:**
+- Created `prototypes/qt-signals/` — button updates its own label on click via a signal/slot connection
+- Built cleanly with Qt's MinGW 13.1; window opens, click counter increments
+- Learned the core Qt mechanism: `QObject::connect(sender, &Sender::signal, slot)` with a lambda as slot
+- Learned the C++ background: pointer-to-member-function syntax (Stroustrup Ch. 20.6.1), lambdas + capture clauses (Stroustrup Ch. 11.4)
+- Learned the CMake configure vs build distinction
+- Created `scripts/qt-env.ps1` to dot-source on fresh terminals (eliminates the two PATH lines per session)
+- Locked in the mental model: button (sender) → `connect()` wire → lambda (slot)
+
+**Where to pick up next:**
+Two valid paths — pick one based on energy:
+1. **More Qt prototypes** (lower risk, builds on momentum): `qt-form/` (QLineEdit + QPushButton + QVBoxLayout) and `qt-dialog/` (QDialog with `.exec()` and return values). Those two together cover every Qt mechanism needed for the unlock dialog.
+2. **Main project integration** (harder, still deferred from the qt-hello session): wire Qt into the root `CMakeLists.txt`. Requires resolving the ABI question below first.
+
+**Critical things to remember:**
+- `[&]` captures by reference — dangerous if a lambda outlives the captured variables (Stroustrup Ch. 11.4.3.1 — "a time bomb"). Safe in these prototypes because everything lives inside `main()` for the same duration. Will matter in the real app.
+- moc runs even for prototypes that don't define custom signals — it processes Qt's own headers. Will matter more once we define our own signal-emitting class (likely for the unlock dialog).
+- Fresh terminal? Run `. .\scripts\qt-env.ps1` *before* anything else. The leading dot-space is dot-sourcing — without it the PATH changes vanish.
+- `cmake -G ... -B build` is the **configure** step (once per prototype, or when `CMakeLists.txt` changes). `cmake --build build` is the **build** step (every code change). Don't confuse them.
+
+**Open questions / decisions deferred:**
+- **Compiler ABI question** (still open from the qt-hello session): can the existing tests (MSYS2 GCC 15.2) and Qt code (GCC 13.1) coexist in one CMake project? Or do we standardize on GCC 13.1 for everything?
+- **VS Code IntelliSense for Qt** — red squiggles on every `#include <Q...>` are cosmetic but persistent. Fix involves enabling `CMAKE_EXPORT_COMPILE_COMMANDS` and configuring the C++ extension. ~2 minute job, deferred until it actually slows me down.
+- **How many prototypes before integration?** Currently planning qt-form and qt-dialog. May add qt-layouts if widget positioning gets confusing.
+
+**Risks to re-rank at start of next session:**
+- **R-02 (Qt learning curve)** — significant progress. Build pipeline proven, signals/slots understood, lambdas demystified. Likely drops from H to M. Still unknown: defining custom signal-emitting classes, QDialog mechanics, layouts.
+- **R-05 (C++ memory mistakes)** — newly concrete: capture-by-reference lifetime is a real Qt-era footgun (Stroustrup's "time bomb" example is essentially a Qt scenario). Mental note for any async or long-lived lambda context.
 
 ---
 
